@@ -41,12 +41,17 @@ FOREIGN KEY (manager_id)
 
 
 INSERT INTO departments (name)
-VALUES ("sales");
+VALUES ("Feed"), ("Training"), ("Sales"), ("Breeding");
 
 INSERT INTO roles (title, salary, department_id)
-VALUES ("sales consultant", 65000.00, 1), ("product management", 105000.00, 1);
+VALUES  ("Farm Hand", 605000.00, 1),
+("Supplier", 65000.00, 1),
+ ("Rider", 60000.02, 2), ("Groom", 43000.88, 2),
+ ("Accountant", 32000.00, 3), ("Sales Consultant", 62999.99, 3),
+ ("Veterinarian", 200999.00, 4), ("Bloodlines Expert", 400000.99, 4);
 
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
-VALUES ("Larry", "Jones", 1, 2), ("Carla", "Jenkins",2, null);
+VALUES ("Carla", "Jenkins", 1, null), ("Larry", "Jones", 1, 1), ("Michal", "Hughes", 2, 1), ("Henrietta", "Mill", 2, 1), 
+("Jane", "Jones", 3, 1), ("Alameda", "Pederson", 3, 1), ("Gretchen", "Green", 4, 1), ("Rolf", "Carle", 4, 1);
 
 SELECT * FROM employeesDB.departments
