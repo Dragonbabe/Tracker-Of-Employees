@@ -94,16 +94,16 @@ async function departmentView() {
     }
 
 };
- async function roleView() {
+async function roleView() {
 
     try {
         const query = 'SELECT * FROM roles';
         const res = await connection.query(query)
         console.table(res);
         runAction()
-        
+
     } catch (err) {
-      console.log(err);  
+        console.log(err);
     }
 };
 
@@ -146,7 +146,7 @@ async function addEmployee() {
 
             }
         ])
-        await connection.query (
+        await connection.query(
             'INSERT INTO employee SET ?',
             {
                 first_name: answer.firstname,
@@ -159,11 +159,60 @@ async function addEmployee() {
     } catch (err) {
         console.log(err);
     }
-}
+};
+async function addRole() {
+    try {
+        const res = await connection.query('SELECT * FROM departments')
+
+        const departmentValue = res.map(departmentValue => ({
+            name: departmentValue.name,
+            value: departmentValue.id
+        }));
+        const answer = await inquirer.prompt([
+            {
+                name: "title",
+                type: "input",
+                message: "what is the title of the role you would like to add?"
+            },
+            {
+                name: "salary",
+                type: "input",
+                message: "What is the salary of this role?"
+            },
+            {
+                name: "departmentid",
+                type: "list",
+                message: "Which department are you adding this role to?",
+                choices: departmentValue
+            }
+
+        ])
+        await connection.query(
+            'INSERT INTO roles SET ?',
+            {
+                title: answer.title,
+                salary: answer.salary,
+                department_id: answer.departmentid
+            }
+        )
+        runAction()
+    } catch (err) {
+        console.log(err)
+
+    }
+};
+// async function addDepartment() {
+//     try {
+//         const res = await connection.query('SELECT * FROM departments');
+
+//         const 
+        
+//     } catch (err) {
+        
+//     }
+
+// }
 
 
 
 
-
-
-  
