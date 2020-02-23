@@ -72,7 +72,7 @@ function runAction() {
 async function employeeView() {
 
     try {
-        const query = 'SELECT * FROM employee ';
+        const query = 'SELECT * FROM employee INNER JOIN roles ON employee.role.id = role.id INNER JOIN departments ON role.department_id = department.id';
 
         const res = await connection.query(query)
         console.table(res);
@@ -205,12 +205,12 @@ async function addDepartment() {
     try {
         const res = await connection.query('SELECT * FROM departments');
 
-        const departmentValue = res.map(departmentValue => ({
+         res.map(departmentValue => ({
             name: departmentValue.name,
             value: departmentValue.id
         }));
 
-        const answer = await inquirer.prompt([
+        await inquirer.prompt([
             {
                 name: "name",
                 type: "input",
@@ -233,37 +233,43 @@ async function updateEmployee(){
     try {
         const res = await connection.query('SELECT * FROM employee');
 
-        const roleValue = res.map(roleValue => ({
-            name: roleValue.name,
-            value: roleValue.id
+        const updateEmp = res.map(updateEmp => ({
+            name: `${updateEmp.first_name} ${updateEmp.last_name}`,
+            value: updateEmp.id
         }));
+
+        const updateRole = await connection.query('SELECT * FROM roles');
+        
+           const roleEmp = updateRole.map(roleEmp => ({
+            name: roleEmp.title,
+            value: roleEmp.id
+        }));
+
         const answer = await inquirer.prompt([
             {
-                name: "firstname",
-                type: "input",
-                message: "What is the employee's first name you would you like to update a role for?"
-            },
-            {
-                name: "lastname",
-                type: "input",
-                message: "What is the employee's last name whose role you would like to update?"
-            },
-            {
-                name: "departmentid",
+                name: "res",
                 type: "list",
-                message: "Which role would you like to update this employee to?",
-                choices: roleValue
-            }
+                message: "Which employee would you like to update?",
+                choices: updateEmp
+            },
+            {
+                name: "updateRole",
+                type: "list",
+                message: "Which role is this employee being updated to?",
+                choices: roleEmp
+            },
+            
         ]);
         await connection.query(
-            'INSERT INTO departments SET ?',
-
+            'UPDATE employee SET ? WHERE ?', [
+                {
+                role_id: answer.updatedrole
+            },
             {
-                first_name: answer.firstname,
-                last_name: answer.lastname,
-                role_id: answer.departmentid
+                id: answer.updateEmp
+
             }
-        )
+            ]);
         runAction()
     }catch (err) {
         console.log(err)
