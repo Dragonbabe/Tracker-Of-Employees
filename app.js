@@ -72,7 +72,7 @@ function runAction() {
 async function employeeView() {
 
     try {
-        const query = 'SELECT * FROM employee INNER JOIN roles ON employee.role.id = role.id INNER JOIN departments ON role.department_id = department.id';
+        const query = 'SELECT * FROM employee INNER JOIN roles ON employee.role_id = role_id INNER JOIN departments ON roles.department_id = department_id';
 
         const res = await connection.query(query)
         console.table(res);
