@@ -249,7 +249,7 @@ async function updateEmployee(){
                 message: "What is the employee's last name whose role you would like to update?"
             },
             {
-                name: "dpeartmentid",
+                name: "departmentid",
                 type: "list",
                 message: "Which role would you like to update this employee to?",
                 choices: roleValue
