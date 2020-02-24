@@ -72,7 +72,7 @@ function runAction() {
 async function employeeView() {
 
     try {
-        const query = 'SELECT * FROM employee INNER JOIN roles ON employee.role_id = role_id INNER JOIN departments ON roles.department_id = department_id';
+        const query = "SELECT * FROM employee";
 
         const res = await connection.query(query)
         console.table(res);
@@ -89,7 +89,7 @@ async function departmentView() {
         const res = await connection.query(query)
         console.table(res);
         runAction()
-    } catch (err) {
+    } catch (err) {''
         console.log(err);
     }
 
