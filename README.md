@@ -9,6 +9,7 @@ _Your business is growing. You have had to hire more and more employees, more de
 * _MYSQL_
 * _JavaScript_
 * _CMS_
+
 _Make sure you have node running so you can easily look up your application in terminal. Download required dependencies such as inquirer, util, and MYSQL._
 ## Known Bugs
 _The table join is not working. I was working on that and I just couldm't quite get that syntax down to get it to work. Also I was doing all my testing in the application itself and it seemed at some point it said that I had made requests too many times :smile: So! In using this application you may run into that error. It is a known bug and the development team is working to have it sorted out ASAP._
